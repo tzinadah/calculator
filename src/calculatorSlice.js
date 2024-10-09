@@ -11,11 +11,40 @@ const calculatorSlice = createSlice({
         },
 
         operation: (state, action) => {
-            return {display: "OPERATION", operator: action.payload, ans:"0"}
+            let newDisplay = "0"
+            let newAns = ""
+            let newOperator = action.payload
+            
+            switch(state.operator){
+                case "+":
+                    newAns = parseFloat(state.display) + parseFloat(state.ans);
+                    break;
+                case "-":
+                    newAns = parseFloat(state.ans) - parseFloat(state.display);
+                    break;
+                case "x":
+                    newAns = parseFloat(state.ans) * parseFloat(state.display);
+                    break;
+                case "/":
+                    newAns = parseFloat(state.ans) / parseFloat(state.display);
+                    break;
+                default:
+                    break;
+            }
+            newAns = newAns.toString();
+
+            if(action.payload === "="){
+                newDisplay = newAns;
+                newAns = "0";
+                newOperator = "+"
+            }
+            return {display: newDisplay, operator: newOperator, ans: newAns}
         },
 
         numberKey: (state, action) => {
-            return {display: action.payload, operator:"", ans:"0"}
+            let newDisplay = state.display === "0" ? action.payload : state.display + action.payload;
+            
+            return {...state, display: newDisplay}
         },
 
         decimalKey: (state) => {

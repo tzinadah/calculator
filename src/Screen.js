@@ -13,7 +13,7 @@ function Screen(props){
         <Form>
             <Row className="justify-content-center">
                 <Col className="bg-dark rounded-bottom rounded-4 border-top border-bottom border-dark border-5" xs={8} md={4} lg={4}>
-                    <Form.Control className="bg-light text-right" value={display} disabled readOnly></Form.Control>
+                    <Form.Control className="bg-light text-end" value={display} disabled readOnly></Form.Control>
                 </Col>
             </Row>
         </Form>
