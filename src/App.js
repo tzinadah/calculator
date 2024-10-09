@@ -10,6 +10,7 @@ import Col from "react-bootstrap/Col"
 import "./custom.scss"
 
 function App() {
+  
   return (
     <div className="vh-100 d-flex align-items-center">  
       <Provider store={store}>  

@@ -31,7 +31,8 @@ const calculatorSlice = createSlice({
                 default:
                     break;
             }
-            newAns = newAns.toString();
+            
+            newAns = Number(newAns.toFixed(4)).toString();
 
             if(action.payload === "="){
                 newDisplay = newAns;
@@ -42,21 +43,23 @@ const calculatorSlice = createSlice({
         },
 
         numberKey: (state, action) => {
-            let newDisplay = state.display === "0" ? action.payload : state.display + action.payload;
-            
+            const newDisplay = (state.display === "0") ? action.payload : state.display + action.payload;
             return {...state, display: newDisplay}
         },
 
         decimalKey: (state) => {
-            return {display: "DECIMAL", operator: "+", ans:"0"}
+            const newDisplay = state.display.includes(".") ? state.display : state.display + ".";
+            return {...state, display: newDisplay}
         },
 
         percentageKey: (state) => {
-            return {display: "PERCENTAGE", operator: "+", ans:"0"}
+            const newDisplay = Number((parseFloat(state.display) / 100 ).toFixed(4)).toString();
+            return {...state, display: newDisplay}
         },
 
         negateKey: (state) => {
-            return {display: "NEGATE", operator: "+", ans: "0"}
+            const newDisplay = state.display === "0" ? state.display : state.display.charAt(0) === "-" ? state.display.slice(1) : "-" + state.display;
+            return {...state, display: newDisplay}
         }
 
     }
